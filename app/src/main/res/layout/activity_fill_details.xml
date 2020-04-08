@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Registration.FillDetails">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fillImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                app:civ_border_width="2dp"
+                android:src="@color/transparent"
+                app:civ_border_color="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/addProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_back"
+                android:layout_gravity="center"
+                android:layout_marginTop="-10dp"
+                android:text="Add Profile Photo"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="10dp"/>
+
+
+            <EditText
+                android:id="@+id/fillName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/details_back"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:inputType="text"
+                android:hint="Name"
+                android:textColorHint="@color/colorBlack"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/fillBusiness"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/details_back"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:inputType="text"
+                android:hint="Business Name"
+                android:textColorHint="@color/colorBlack"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/fillEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/details_back"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:inputType="textEmailAddress"
+                android:hint="Email Address"
+                android:textColorHint="@color/colorBlack"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/fillMobile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/details_back"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:inputType="number"
+                android:hint="Year of establishment"
+                android:textColorHint="@color/colorBlack"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/fillAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/details_back"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:inputType="textMultiLine"
+                android:hint="Address"
+                android:textColorHint="@color/colorBlack"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/fillAddressCity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/details_back"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:inputType="textMultiLine"
+                android:hint="City"
+                android:textColorHint="@color/colorBlack"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/fillAddressState"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/details_back"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:inputType="textMultiLine"
+                android:hint="State"
+                android:textColorHint="@color/colorBlack"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/fillGst"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/details_back"
+                android:elevation="5dp"
+                android:padding="10dp"
+                android:hint="GST Number"
+                android:textColorHint="@color/colorBlack"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"/>
+
+
+            <Button
+                android:id="@+id/logButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_back"
+                android:text="NEXT"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"/>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

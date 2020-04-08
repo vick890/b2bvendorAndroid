@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.golink.ecommerceb2bvendor.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:theme="@style/Theme.NoActionBar.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.NoActionBar.PopupOverlay" >
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+
+
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/logIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_logout"
+                    android:padding="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"/>
+
+                <ImageView
+                    android:id="@+id/notIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/logIcon"
+                    android:src="@drawable/ic_notification"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/orderNumber"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:textStyle="bold"
+                    android:textSize="10sp"
+                    android:background="@drawable/white_back"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_alignParentRight="true"/>
+
+
+            </RelativeLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        android:layout_above="@+id/imageC"
+        layout="@layout/content_main_dashboard_second"/>
+
+
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/imageC"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/mdtp_light_gray"
+        android:layout_above="@+id/bottomLay"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/bottomLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite"
+        android:elevation="10dp"
+        android:layout_alignParentBottom="true">
+
+
+        <RelativeLayout
+            android:id="@+id/addProductLay"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/addImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/home_grey_bottom"
+                android:padding="5dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/addImageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:layout_below="@+id/addImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/subscriptionLay"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/subscriptionImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/order_bottom"
+                android:padding="5dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/subscriptionImageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orders"
+                android:layout_below="@+id/subscriptionImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/walletLay"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp">
+
+            <ImageView
+                android:id="@+id/walletImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/chat_bottom"
+                android:padding="5dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/walletImageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chat"
+                android:layout_below="@+id/walletImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/supportLay"
+            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp">
+
+            <ImageView
+                android:id="@+id/supportImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/profile_bottom"
+                android:padding="5dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/supportImageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:layout_below="@+id/supportImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

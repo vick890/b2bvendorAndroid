@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/linLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:weightSum="1">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/featureImage"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="0.3"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp">
+
+
+            <TextView
+                android:id="@+id/featureName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Amasnd ajsdn"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"
+                android:gravity="bottom"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:id="@+id/featureMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mobile"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                android:gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:id="@+id/featureAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Amasnd ajsdn"
+                android:textColor="@color/colorGray"
+                android:textSize="12sp"
+                android:gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/featureStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Amasnd ajsdn"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                android:gravity="top"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <LinearLayout
+                android:id="@+id/linLay2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+
+                <Button
+                    android:id="@+id/acceptBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.5"
+                    android:text="ACCEPT"
+                    android:textSize="14sp"
+                    android:background="@drawable/button_back"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"/>
+
+                <Button
+                    android:id="@+id/rejectBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_back"
+                    android:gravity="center"
+                    android:text="REJECT"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorWhite"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
