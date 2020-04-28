@@ -39,5 +39,6 @@ public class Constants {
     public static final String UPDATE_REQUEST = COMMON_URL + "updateRequestNotification";
     public static final String NOT_REQ = COMMON_URL + "notificationRequest";
     public static final String SAVE_CAT = COMMON_URL + "addCategory";
+    public static final String DELETE_USER_REQUEST = COMMON_URL + "saveDeleteUserRequest";
 
 }

@@ -23,14 +23,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.golink.ecommerceb2bvendor.Dashboard;
 import com.golink.ecommerceb2bvendor.MainActivity;
 import com.golink.ecommerceb2bvendor.R;
 import com.golink.ecommerceb2bvendor.Registration.LogIn;
+import com.golink.ecommerceb2bvendor.Registration.OtpPage;
 import com.golink.ecommerceb2bvendor.Utils.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -73,9 +76,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.Recycler
 
         if(check.equals("request")){
             holder.linLay2.setVisibility(View.VISIBLE);
-            holder.featureStatus.setVisibility(View.GONE);
+            holder.linear1.setVisibility(View.GONE);
+
         }else {
-            holder.featureStatus.setVisibility(View.VISIBLE);
+            holder.linear1.setVisibility(View.VISIBLE);
             holder.linLay2.setVisibility(View.GONE);
         }
 
@@ -110,6 +114,141 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.Recycler
                         .fit().into(holder.featureImage);
             }
 
+        });
+
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mProgress.setMessage("Removing User...");
+                mProgress.show();
+                final String requestId = carItems.getId();
+                final RequestQueue requestQueue = Volley.newRequestQueue(mCtx);
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.DELETE_USER_REQUEST, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            final JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+
+                            boolean error = jsonObject.getBoolean("error");
+
+                            if(!error){
+
+                                Toast.makeText(mCtx, "User deleted successfully!", Toast.LENGTH_LONG).show();
+
+                                RequestQueue requestQueue = Volley.newRequestQueue(mCtx);
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.REJECT_REQUEST, new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(final String response) {
+
+                                        try {
+                                            final JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+
+                                            boolean error = jsonObject.getBoolean("error");
+
+                                            if(!error){
+
+                                                mProgress.dismiss();
+                                                Toast.makeText(mCtx, "Done.", Toast.LENGTH_SHORT).show();
+
+                                                Activity activity = (Activity)mCtx;
+                                                Intent intent = new Intent(mCtx, MainActivity.class);
+                                                intent.putExtra("page", "main");
+                                                mCtx.startActivity(intent);
+                                                activity.finish();
+
+
+                                            } else {
+
+                                                String message = jsonObject.getString("message");
+
+                                                Toast.makeText(mCtx, message, Toast.LENGTH_SHORT).show();
+                                                mProgress.dismiss();
+
+                                            }
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            mProgress.dismiss();
+                                        }
+
+
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+
+
+                                        mProgress.dismiss();
+                                        Toast.makeText(mCtx, "Some error occured. Please Try Again!", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }) {
+                                    @Override
+                                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                                        Map<String, String> paramMap = new HashMap<String, String>();
+                                        paramMap.put("userid", id);
+                                        paramMap.put("usertoken", usertoken);
+                                        paramMap.put("request_id", requestId);
+
+                                        return paramMap;
+
+                                    }
+                                };
+
+                                stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                                requestQueue.add(stringRequest);
+
+
+                            }
+                            else
+                                {
+
+                                String message = jsonObject.getString("message");
+
+                                Toast.makeText(mCtx, message, Toast.LENGTH_SHORT).show();
+                                mProgress.dismiss();
+
+                            }
+
+                        } catch (JSONException e) {
+
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String, String> paramMap = new HashMap<String, String>();
+
+                        paramMap.put("userid", id);
+                        paramMap.put("usertoken", usertoken);
+                        paramMap.put("request_id",requestId);
+
+                        return paramMap;
+
+                    }
+                };
+
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                requestQueue.add(stringRequest);
+
+            }
         });
 
 
@@ -260,11 +399,9 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.Recycler
                     protected Map<String, String> getParams() throws AuthFailureError {
 
                         Map<String, String> paramMap = new HashMap<String, String>();
-
                         paramMap.put("userid", id);
                         paramMap.put("usertoken", usertoken);
                         paramMap.put("request_id", carItems.getId());
-
 
                         return paramMap;
 
@@ -276,17 +413,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.Recycler
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                 requestQueue.add(stringRequest);
-
-
-
             }
         });
-
-
-
-
-
-
     }
 
     @Override
@@ -301,9 +429,9 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.Recycler
         private TextView featureMobile;
         private CircleImageView featureImage;
         private Button acceptBtn;
-        private Button rejectBtn;
+        private Button rejectBtn,deleteBtn;
         private TextView featureStatus;
-        private LinearLayout linLay2;
+        private LinearLayout linLay2,linLay,linear1;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
@@ -314,10 +442,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.Recycler
             featureImage = itemView.findViewById(R.id.featureImage);
             acceptBtn = itemView.findViewById(R.id.acceptBtn);
             rejectBtn = itemView.findViewById(R.id.rejectBtn);
+            deleteBtn = itemView.findViewById(R.id.deleteBtn);
             featureStatus = itemView.findViewById(R.id.featureStatus);
             linLay2 = itemView.findViewById(R.id.linLay2);
-
-
+            linLay = itemView.findViewById(R.id.linLay);
+            linear1 = itemView.findViewById(R.id.linear1);
         }
     }
 

@@ -62,14 +62,11 @@ public class Dashboard extends Fragment {
         if (actionBar != null)
             actionBar.setTitle("");
 
-
         SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences(LogIn.login, MODE_PRIVATE);
 
         id = sharedPreferences2.getString("id", "0");
         usertoken = sharedPreferences2.getString("usertoken", "0");
 
-        Toast.makeText(getActivity(), String.valueOf(id), Toast.LENGTH_LONG).show();
-        Toast.makeText(getActivity(), String.valueOf(usertoken), Toast.LENGTH_LONG).show();
 
         progressD = view.findViewById(R.id.progressD);
         progressD.setVisibility(View.VISIBLE);
@@ -237,10 +234,6 @@ public class Dashboard extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         requestQueue.add(stringRequest);
-
-
-
-
 
         productBtn.setOnClickListener(new View.OnClickListener() {
             @Override

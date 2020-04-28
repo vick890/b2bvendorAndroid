@@ -59,18 +59,41 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"/>
 
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/featureStatus"
+
+
+            <LinearLayout
+                android:id="@+id/linear1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Amasnd ajsdn"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp"
-                android:gravity="top"
-                android:layout_marginLeft="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:visibility="visible"
+                    android:id="@+id/featureStatus"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.80"
+                    android:layout_height="wrap_content"
+                    android:text="Amasnd ajsdn"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <Button
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.20"
+                    android:background="@drawable/ic_delete_black_24dp"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorWhite"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linLay2"

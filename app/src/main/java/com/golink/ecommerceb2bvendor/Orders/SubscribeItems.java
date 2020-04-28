@@ -26,7 +26,6 @@ public class SubscribeItems {
         this.days = days;
     }
 
-
     public String getId() {
         return id;
     }

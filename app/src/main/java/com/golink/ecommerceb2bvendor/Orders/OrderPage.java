@@ -60,8 +60,6 @@ public class OrderPage extends Fragment {
         id = sharedPreferences2.getString("id", "0");
         usertoken = sharedPreferences2.getString("usertoken", "0");
 
-        Toast.makeText(getActivity(), id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), usertoken, Toast.LENGTH_SHORT).show();
 
         progressD = view.findViewById(R.id.progressD);
         progressD.setVisibility(View.VISIBLE);

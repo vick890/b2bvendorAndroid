@@ -72,12 +72,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.RecyclerView
         id = sharedPreferences2.getString("id", "0");
         usertoken = sharedPreferences2.getString("usertoken", "0");
 
-        holder.orderId.setText("Order ID: " + carItems.getId());
-        holder.orderPrice.setText(carItems.getDate());
-        holder.orderDate.setText(carItems.getName());
-        holder.orderStatus.setText("₹ " + carItems.getAmount());
+        if (carItems.getId().equals(null) || carItems.getId().equals("")){
+            holder.cv_personalInfo.setVisibility(View.GONE);
+        }
+        else {
+            holder.orderId.setText("Order ID: " + carItems.getId());
+            holder.orderPrice.setText(carItems.getDate());
+            holder.orderDate.setText(carItems.getName());
+            holder.orderStatus.setText("₹ " + carItems.getAmount());
 
-
+        }
 
 
 //        switch (carItems.getStatus()) {
@@ -96,14 +100,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.RecyclerView
 //                break;
 //        }
 
-
-
         holder.cv_personalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                Fragment fragment = new SingleOrder();
+                Fragment fragment = new AllSingleUserOrders();
                 Bundle bundle = new Bundle();
                 bundle.putString("orderid", carItems.getId());
                 bundle.putString("userid", carItems.getUserid());
@@ -114,7 +114,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.RecyclerView
                 fragmentTransaction.replace(R.id.content_frame_second, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
             }
         });
 
@@ -131,7 +130,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.RecyclerView
 
                                 mProgress.setMessage("Please wait...");
                                 mProgress.show();
-
 
                                 RequestQueue requestQueue = Volley.newRequestQueue(mCtx);
                                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.SEND_DELIVERED, new Response.Listener<String>() {
@@ -162,8 +160,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.RecyclerView
                                             e.printStackTrace();
                                             mProgress.dismiss();
                                         }
-
-
                                     }
                                 }, new Response.ErrorListener() {
                                     @Override
@@ -203,11 +199,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.RecyclerView
                             }
                         })
                         .create().show();
-
             }
         });
-
-
     }
 
     @Override

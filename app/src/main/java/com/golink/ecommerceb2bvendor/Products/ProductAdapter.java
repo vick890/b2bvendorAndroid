@@ -99,9 +99,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mCtx, homeItems.getId(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(mCtx, homeItems.getName(), Toast.LENGTH_SHORT).show();
-
                 Fragment fragment = new SingleProduct();
                 Bundle bundle = new Bundle();
                 bundle.putString("feedkey", homeItems.getId());

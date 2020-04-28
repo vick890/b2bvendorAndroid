@@ -67,8 +67,6 @@ public class ProductsPage extends Fragment {
         id = sharedPreferences2.getString("id", "0");
         usertoken = sharedPreferences2.getString("usertoken", "0");
 
-        Toast.makeText(getActivity(), id, Toast.LENGTH_LONG).show();
-        Toast.makeText(getActivity(), usertoken, Toast.LENGTH_LONG).show();
 
         progressD = view.findViewById(R.id.progressD);
         progressD.setVisibility(View.VISIBLE);

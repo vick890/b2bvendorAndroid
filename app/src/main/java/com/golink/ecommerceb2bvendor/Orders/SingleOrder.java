@@ -240,10 +240,6 @@ public class SingleOrder extends Fragment {
                                 ));
                             }
 
-
-
-
-
                         }
 
                     }
