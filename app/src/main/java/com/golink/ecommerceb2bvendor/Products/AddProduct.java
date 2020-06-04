@@ -15,14 +15,18 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -31,7 +35,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +57,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.golink.ecommerceb2bvendor.MainActivity;
+import com.golink.ecommerceb2bvendor.PreviewImages;
 import com.golink.ecommerceb2bvendor.R;
 import com.golink.ecommerceb2bvendor.Registration.LogIn;
 import com.golink.ecommerceb2bvendor.Utils.Constants;
@@ -59,6 +67,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -70,16 +80,20 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AddProduct extends Fragment {
 
-    private EditText prodName, prodMoq, prodPrice;
+    private ScrollView scrollView;
+    private EditText prodName, prodMoq, prodPrice,offerPrice;
     private Spinner prodType;
+    private Context context;
+    final ArrayList<Bitmap> bitmaps = new ArrayList<>();
+    private ImageView previewImagess;
 
     private List<String> manufacture = new ArrayList<>();
     private HashMap<String, String> manufactureCheck= new HashMap<String, String>();
     private HashMap<String, String> manufactureCheckEdit= new HashMap<String, String>();
     private ProgressDialog mProgress;
     private String id, usertoken, checkPage, feedkey;
-
-
+    private CheckBox outOfStockCheckBox;
+    private TextView previewImages;
     private TextView blackNumber, whiteNumber, redNumber, greenNumber, blueNumber, previewNumber;
 
     private static final int GALLARY_REQUEST_BLACK = 1;
@@ -97,7 +111,12 @@ public class AddProduct extends Fragment {
     private ArrayList<String> resultArrayPreview = new ArrayList<String>();
 
 
+    public AddProduct(Context context) {
+        this.context = context;
+    }
 
+    public AddProduct() {
+    }
 
     @Nullable
     @Override
@@ -118,14 +137,19 @@ public class AddProduct extends Fragment {
             feedkey = b.getString("feedkey");
         }
 
+        scrollView = view.findViewById(R.id.scrollView);
 
         Button addBtn = view.findViewById(R.id.logButton);
         prodName = view.findViewById(R.id.prodName);
         prodType = view.findViewById(R.id.prodType);
         prodMoq = view.findViewById(R.id.prodMoq);
         prodPrice = view.findViewById(R.id.prodPrice);
+        offerPrice = view.findViewById(R.id.offerPrice);
         mProgress = new ProgressDialog(getActivity());
         Button addCat = view.findViewById(R.id.addCat);
+        outOfStockCheckBox = view.findViewById(R.id.outOfStockCheckBox);
+        previewImages = view.findViewById(R.id.previewImages);
+        previewImagess = view.findViewById(R.id.previewImagess);
 
         mProgress.setMessage("Please Wait...");
         mProgress.show();
@@ -146,6 +170,84 @@ public class AddProduct extends Fragment {
         blueNumber = view.findViewById(R.id.blueNumber);
         previewNumber = view.findViewById(R.id.previewNumber);
 
+        previewNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmaps != null){
+                    previewImagess.setVisibility(View.VISIBLE);
+                    showImages();
+                }
+                else{
+                    Toast.makeText(context, "First Select Some Images...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        blackNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmaps != null){
+                    previewImagess.setVisibility(View.VISIBLE);
+                    showImages();
+                }
+                else{
+                    Toast.makeText(context, "First Select Some Images...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        blueNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmaps != null){
+                    previewImagess.setVisibility(View.VISIBLE);
+                    showImages();
+                }
+                else{
+                    Toast.makeText(context, "First Select Some Images...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        greenNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmaps != null){
+                    previewImagess.setVisibility(View.VISIBLE);
+                    showImages();
+                }
+                else{
+                    Toast.makeText(context, "First Select Some Images...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        redNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmaps != null){
+                    previewImagess.setVisibility(View.VISIBLE);
+                    showImages();
+                }
+                else{
+                    Toast.makeText(context, "First Select Some Images...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        whiteNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmaps != null){
+                    previewImagess.setVisibility(View.VISIBLE);
+                    showImages();
+                }
+                else{
+                    Toast.makeText(context, "First Select Some Images...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         if(ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
@@ -153,7 +255,6 @@ public class AddProduct extends Fragment {
         else {
             requestStoragePermission();
         }
-
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.ALL_CATEGORIES, new Response.Listener<String>() {
@@ -183,8 +284,6 @@ public class AddProduct extends Fragment {
                             menLISt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             prodType.setAdapter(menLISt);
                         }
-
-
 
                     } else {
 
@@ -256,10 +355,20 @@ public class AddProduct extends Fragment {
                             final String price = obj1.getString("price");
                             final String moq = obj1.getString("moq");
                             final String category = obj1.getString("category_id");
+                            final String ofs = obj1.getString("out_of_stock");
+                            final String offer_price = obj1.getString("offer_price");
 
                             prodName.setText(name);
                             prodPrice.setText(price);
+                            offerPrice.setText(offer_price);
                             prodMoq.setText(moq);
+                            if (ofs.equals("1")){
+                                outOfStockCheckBox.setChecked(true);
+                            }
+                            else{
+                                outOfStockCheckBox.setChecked(false);
+                            }
+
 
                             String manFinal = manufactureCheckEdit.get(category);
                             selectSpinnerValue(prodType, manFinal);
@@ -425,18 +534,23 @@ public class AddProduct extends Fragment {
                     gallaryIntent.setType("image/*");
                     startActivityForResult(gallaryIntent, GALLARY_REQUEST_BLUE);
                 }
-                else {
+                else
+                    {
                     Toast.makeText(getActivity(), "Please grant storage access from settings!", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
-
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String ofs;
+                if (outOfStockCheckBox.isChecked()){
+                    ofs = "1";
+                }
+                else{
+                    ofs = "0";
+                }
 
                 String man = prodType.getSelectedItem().toString();
                 Toast.makeText(getActivity(), man, Toast.LENGTH_SHORT).show();
@@ -447,8 +561,9 @@ public class AddProduct extends Fragment {
                 String name = prodName.getText().toString();
                 String moq = prodMoq.getText().toString();
                 String price = prodPrice.getText().toString();
+                String ooo = offerPrice.getText().toString();
 
-                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(moq) && !TextUtils.isEmpty(price)){
+                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(moq) && !TextUtils.isEmpty(price) && !TextUtils.isEmpty(ooo)){
 
 
 
@@ -497,6 +612,8 @@ public class AddProduct extends Fragment {
                                 .addMultipartParameter("moq", moq)
                                 .addMultipartParameter("price", price)
                                 .addMultipartParameter("product_id", feedkey)
+                                .addMultipartParameter("out_of_stock", ofs)
+                                .addMultipartParameter("offer_price", ooo)
                                 .setPriority(Priority.HIGH)
                                 .build()
                                 .setUploadProgressListener(new UploadProgressListener() {
@@ -545,16 +662,8 @@ public class AddProduct extends Fragment {
                                         Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
                                     }
                                 });
-
-
-
-
                     }else{
                         if(preview.size()!=0){
-
-
-
-
                             AndroidNetworking.upload(Constants.SAVE_PRODUCT)
                                     .addMultipartFileList("preview_image[]", preview)
                                     .addMultipartFileList("black[]", black)
@@ -568,6 +677,8 @@ public class AddProduct extends Fragment {
                                     .addMultipartParameter("category_id", manFinal)
                                     .addMultipartParameter("moq", moq)
                                     .addMultipartParameter("price", price)
+                                    .addMultipartParameter("out_of_stock", ofs)
+                                    .addMultipartParameter("offer_price", ooo)
                                     .setPriority(Priority.HIGH)
                                     .build()
                                     .setUploadProgressListener(new UploadProgressListener() {
@@ -585,28 +696,24 @@ public class AddProduct extends Fragment {
 
                                                 if(!error){
 
+
                                                     mProgress.dismiss();
                                                     Toast.makeText(getActivity(), "Successfully Added!", Toast.LENGTH_LONG).show();
                                                     Intent intent = new Intent(getActivity(), MainActivity.class);
                                                     intent.putExtra("page", "product");
                                                     startActivity(intent);
-
-
-                                                } else {
-
+                                                }
+                                                else
+                                                {
                                                     String message = response.getString("message");
 
                                                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                                                     mProgress.dismiss();
-
                                                 }
-
                                             } catch (JSONException e) {
                                                 mProgress.dismiss();
                                                 e.printStackTrace();
                                             }
-
-
                                         }
 
                                         @Override
@@ -616,12 +723,6 @@ public class AddProduct extends Fragment {
                                             Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
                                         }
                                     });
-
-
-
-
-
-
                         }else{
 
                             mProgress.dismiss();
@@ -629,47 +730,22 @@ public class AddProduct extends Fragment {
 
                         }
                     }
-
-
-
-
-
                 }else {
                     Toast.makeText(getActivity(), "Required field(s) empty!", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
-
-
-
-
             }
         });
-
 
         addCat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getActivity(), AddCategory.class);
                 startActivity(intent);
-
             }
         });
 
-
-
-
-
         return view;
-
-
     }
-
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -678,206 +754,184 @@ public class AddProduct extends Fragment {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == GALLARY_REQUEST_PREVIEW) {
-
-
                 if (data.getData() != null) {
-
                     Uri path = data.getData();
-
                     previewNumber.setText("1 File selected");
-
                     resultArrayPreview.add(getPath(path));
-
-
-
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                        bitmaps.add(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
-
-
             } else if (requestCode == GALLARY_REQUEST_BLACK) {
-
-
                 if (data.getData() != null) {
-
                     Uri path = data.getData();
-
                     blackNumber.setText("1 File selected");
-
                     resultArrayBlack.add(getPath(path));
 
-
-
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                        bitmaps.add(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     if (data.getClipData() != null) {
                         ClipData clipData = data.getClipData();
-
                         blackNumber.setText(clipData.getItemCount() + " Files selected");
-
                         for (int i = 0; i < clipData.getItemCount(); i++) {
                             ClipData.Item item = clipData.getItemAt(i);
                             Uri uri = item.getUri();
-
                             resultArrayBlack.add(getPath(uri));
 
-
-
+                            try {
+                                InputStream is = getActivity().getContentResolver().openInputStream(uri);
+                                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                                bitmaps.add(bitmap);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
-
 
                     }
                 }
-
-
             }
 
             else  if (requestCode == GALLARY_REQUEST_WHITE) {
-
-
                 if (data.getData() != null) {
-
                     Uri path = data.getData();
-
                     whiteNumber.setText("1 File selected");
-
                     resultArrayWhite.add(getPath(path));
-
-
-
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                        bitmaps.add(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     if (data.getClipData() != null) {
                         ClipData clipData = data.getClipData();
-
                         whiteNumber.setText(clipData.getItemCount() + " Files selected");
-
                         for (int i = 0; i < clipData.getItemCount(); i++) {
                             ClipData.Item item = clipData.getItemAt(i);
                             Uri uri = item.getUri();
 
                             resultArrayWhite.add(getPath(uri));
-
-
-
+                            try {
+                                InputStream is = getActivity().getContentResolver().openInputStream(uri);
+                                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                                bitmaps.add(bitmap);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
-
-
                     }
                 }
-
-
             }
 
             else  if (requestCode == GALLARY_REQUEST_RED) {
-
-
                 if (data.getData() != null) {
-
                     Uri path = data.getData();
-
                     redNumber.setText("1 File selected");
-
                     resultArrayRed.add(getPath(path));
-
-
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                        bitmaps.add(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
                     if (data.getClipData() != null) {
                         ClipData clipData = data.getClipData();
-
                         redNumber.setText(clipData.getItemCount() + " Files selected");
 
                         for (int i = 0; i < clipData.getItemCount(); i++) {
                             ClipData.Item item = clipData.getItemAt(i);
                             Uri uri = item.getUri();
-
                             resultArrayRed.add(getPath(uri));
-
-
-
+                            try {
+                                InputStream is = getActivity().getContentResolver().openInputStream(uri);
+                                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                                bitmaps.add(bitmap);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
-
-
                     }
                 }
-
-
             }
 
             else  if (requestCode == GALLARY_REQUEST_GREEN) {
-
-
                 if (data.getData() != null) {
-
                     Uri path = data.getData();
-
                     greenNumber.setText("1 File selected");
-
                     resultArrayGreen.add(getPath(path));
-
-
-
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                        bitmaps.add(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     if (data.getClipData() != null) {
                         ClipData clipData = data.getClipData();
-
                         greenNumber.setText(clipData.getItemCount() + " Files selected");
-
                         for (int i = 0; i < clipData.getItemCount(); i++) {
                             ClipData.Item item = clipData.getItemAt(i);
                             Uri uri = item.getUri();
-
                             resultArrayGreen.add(getPath(uri));
-
-
-
+                            try {
+                                InputStream is = getActivity().getContentResolver().openInputStream(uri);
+                                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                                bitmaps.add(bitmap);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
-
-
                     }
                 }
-
-
             }
 
             else  if (requestCode == GALLARY_REQUEST_BLUE) {
-
-
                 if (data.getData() != null) {
-
                     Uri path = data.getData();
-
                     blueNumber.setText("1 File selected");
-
                     resultArrayBlue.add(getPath(path));
-
-
-
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                        bitmaps.add(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     if (data.getClipData() != null) {
                         ClipData clipData = data.getClipData();
-
                         blueNumber.setText(clipData.getItemCount() + " Files selected");
-
                         for (int i = 0; i < clipData.getItemCount(); i++) {
                             ClipData.Item item = clipData.getItemAt(i);
                             Uri uri = item.getUri();
-
                             resultArrayBlue.add(getPath(uri));
-
-
-
+                            try {
+                                InputStream is = getActivity().getContentResolver().openInputStream(uri);
+                                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                                bitmaps.add(bitmap);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
-
-
                     }
                 }
-
-
             }
-
-
         }
-
-
-
     }
 
 
@@ -965,6 +1019,28 @@ public class AddProduct extends Fragment {
                 break;
             }
         }
+    }
+
+    private void showImages(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0,previewImagess.getTop());
+                for (final Bitmap b: bitmaps){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            previewImagess.setImageBitmap(b);
+                        }
+                    });
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
 }

@@ -102,8 +102,14 @@ public class ProductsPage extends Fragment {
                                         jsonObject2.getString("name"),
                                         jsonObject2.getString("preview_image_path"),
                                         jsonObject2.getString("price"),
+                                        null,
+                                        null,
+                                        jsonObject2.getString("offer_price"),
+                                        jsonObject2.getString("offer_percentage"),
+                                        jsonObject2.getString("out_of_stock"),
                                         jsonObject2.getString("moq"),
                                         jsonObject2.getString("color")
+
                                 ));
                             }
 

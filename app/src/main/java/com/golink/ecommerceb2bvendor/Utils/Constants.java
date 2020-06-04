@@ -3,8 +3,10 @@ package com.golink.ecommerceb2bvendor.Utils;
 public class Constants {
 
 
-    private static final String COMMON_URL = "https://www.cartprod.ml/ecommerce/api/";
-    public static final String IMAGE_URL = "https://www.cartprod.ml/ecommerce/";
+    //private static final String COMMON_URL = "https://www.cartprod.ml/ecommerce/api/";
+    private static final String COMMON_URL = "https://www.brolabs.xyz/ecommerce/api/";
+   // public static final String IMAGE_URL = "https://www.cartprod.ml/ecommerce/";
+    public static final String IMAGE_URL = "https://www.brolabs.xyz/ecommerce/";
 
 
     public static final String SIGNUP = COMMON_URL + "vendorLoginSign";

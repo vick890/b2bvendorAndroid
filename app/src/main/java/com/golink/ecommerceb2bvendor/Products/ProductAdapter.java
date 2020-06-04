@@ -47,10 +47,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
 
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, int position) {
+        holder.setIsRecyclable(false);
         final ProductItems homeItems = homeItemsList.get(position);
 
         holder.prodName.setText(homeItems.getName());
         holder.prodPrice.setText("₹ " + homeItems.getPrice());
+        holder.offerPrice.setText("₹ " + homeItems.getOffer_price());
+        holder.offerPercentage.setText(homeItems.getOffer_percentage()+"% OFF");
+        if (homeItems.getOut_of_stock() !=  null && !homeItems.getOut_of_stock().equals("")){
+            if (homeItems.getOut_of_stock().equals("1")){
+                holder.outOfStock.setText("OUT OF STOCK");
+            }
+            else {
+                holder.outOfStock.setVisibility(View.GONE);
+            }
+        }
+        else{
+            holder.outOfStock.setVisibility(View.GONE);
+        }
         holder.prodMoq.setText("MOQ (" + homeItems.getMoq() + ")");
 
         Picasso.get().load(Constants.IMAGE_URL + homeItems.getImage())
@@ -124,7 +138,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         private TextView prodName;
-        private TextView prodPrice;
+        private TextView prodPrice,offerPrice,offerPercentage,outOfStock;
         private TextView prodMoq;
         private CardView linLay;
         private ImageView prodImage;
@@ -136,6 +150,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
             prodName = itemView.findViewById(R.id.prodName);
             linLay = itemView.findViewById(R.id.linLay);
             prodImage = itemView.findViewById(R.id.prodImage);
+            offerPrice = itemView.findViewById(R.id.offerPrice);
+            offerPercentage = itemView.findViewById(R.id.offerPercentage);
+            outOfStock = itemView.findViewById(R.id.outOfStock);
             prodPrice = itemView.findViewById(R.id.prodPrice);
             prodMoq = itemView.findViewById(R.id.prodMoq);
             blackIm = itemView.findViewById(R.id.blackIm);
@@ -144,8 +161,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
             greenIm = itemView.findViewById(R.id.greenIm);
             blueIm = itemView.findViewById(R.id.blueIm);
             fake = itemView.findViewById(R.id.fake);
-
-
 
         }
     }

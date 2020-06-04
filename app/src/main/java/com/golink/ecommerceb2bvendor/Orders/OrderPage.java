@@ -137,7 +137,7 @@ public class OrderPage extends Fragment {
 
         requestQueue.add(stringRequest);
 
-        final RequestQueue requestQueue3 = Volley.newRequestQueue(getActivity());
+        /*final RequestQueue requestQueue3 = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest3 = new StringRequest(Request.Method.POST, Constants.UPDATE_ORDER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -171,6 +171,54 @@ public class OrderPage extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue3.add(stringRequest3);
+        */
+
+        final RequestQueue requestQueue3 = Volley.newRequestQueue(getActivity());
+        StringRequest stringRequest3 = new StringRequest(Request.Method.POST, Constants.UPDATE_ORDER, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    final JSONObject jsonObject = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
+
+
+
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
+
+
+                //progressD.setVisibility(View.GONE);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                //progressD.setVisibility(View.GONE);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> paramMap = new HashMap<String, String>();
+
+                paramMap.put("userid", id);
+                paramMap.put("usertoken", usertoken);
+
+                return paramMap;
+
+            }
+        };
+
+        stringRequest3.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue3.add(stringRequest3);
+
         return view;
     }
 }

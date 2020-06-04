@@ -195,14 +195,6 @@ public class RequestPage extends Fragment {
         requestQueue3.add(stringRequest3);
 
 
-
-
-
-
-
-
-
-
         return view;
 
     }

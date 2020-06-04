@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".Service.GoLink"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/logo_icon"
@@ -13,7 +14,8 @@
         android:roundIcon="@mipmap/logo_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.NoActionBar">
-        <activity android:name=".Products.AddCategory"></activity>
+        <activity android:name=".PreviewImages"></activity>
+        <activity android:name=".Products.AddCategory" />
         <activity android:name=".Notification.NotificationPage" />
         <activity android:name=".Analysis.ChartPage" />
         <activity android:name=".Invite.InvitePage" />
@@ -46,6 +48,17 @@
         <activity android:name=".Chat.PersonalChat" />
         <activity android:name=".Chat.ChatBoard" />
         <activity android:name=".Chat.AllVendors" />
+
+        <receiver android:name=".Service.MyBroadcastReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Service.MyService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

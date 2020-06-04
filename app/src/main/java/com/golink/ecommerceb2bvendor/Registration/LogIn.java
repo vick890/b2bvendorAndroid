@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.golink.ecommerceb2bvendor.MainActivity;
 import com.golink.ecommerceb2bvendor.R;
+import com.golink.ecommerceb2bvendor.Service.MyService;
 import com.golink.ecommerceb2bvendor.Utils.Constants;
 import com.golink.ecommerceb2bvendor.Utils.Validations;
 import com.squareup.picasso.Callback;
@@ -79,6 +80,7 @@ public class LogIn extends AppCompatActivity {
             intent.putExtra("page", "main");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            startService(new Intent(this, MyService.class));
             finish();
 
         }

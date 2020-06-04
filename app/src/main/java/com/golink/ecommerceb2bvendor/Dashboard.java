@@ -4,10 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -47,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.golink.ecommerceb2bvendor.Service.GoLink.CHANNEL_1_ID;
 
 public class Dashboard extends Fragment {
 
@@ -61,6 +68,7 @@ public class Dashboard extends Fragment {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null)
             actionBar.setTitle("");
+
 
         SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences(LogIn.login, MODE_PRIVATE);
 
@@ -79,10 +87,6 @@ public class Dashboard extends Fragment {
         RelativeLayout requestBtn = view.findViewById(R.id.requestBtn);
         final TextView reqNumber = view.findViewById(R.id.reqNumber);
         final TextView orderNumber = view.findViewById(R.id.orderNumber);
-
-
-
-
 
         final RequestQueue requestQueue3 = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest3 = new StringRequest(Request.Method.POST, Constants.COUNT_ORDER, new Response.Listener<String>() {
@@ -104,8 +108,25 @@ public class Dashboard extends Fragment {
                         if(count.equals("0")){
                             orderNumber.setVisibility(View.GONE);
                         }else {
+                            PendingIntent contentIntent = PendingIntent.getActivity(getActivity(), 0,
+                                    new Intent(getActivity(), LogIn.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
+                            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getActivity());
+
+                            Notification notification = new NotificationCompat.Builder(getActivity(), CHANNEL_1_ID)
+                                    .setContentTitle("New orders")
+                                    .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
+                                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                                    .setSmallIcon(R.drawable.logo_icon)
+                                    .setColor(getResources().getColor(R.color.transparent))
+                                    .setContentIntent(contentIntent)
+                                    .build();
+
+                            notificationManagerCompat.notify(1, notification);
                             orderNumber.setVisibility(View.VISIBLE);
-                            orderNumber.setText(String.valueOf(orderItemsList.size()));
+                           // orderNumber.setText(String.valueOf(orderItemsList.size()));
+                            orderNumber.setText(count);
                         }
 
 
@@ -117,10 +138,7 @@ public class Dashboard extends Fragment {
                     e.printStackTrace();
                 }
 
-
                 //progressD.setVisibility(View.GONE);
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -255,6 +273,9 @@ public class Dashboard extends Fragment {
             @Override
             public void onClick(View v) {
 
+                NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(1);
+
                 Fragment fragment = new OrderPage();
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -262,7 +283,6 @@ public class Dashboard extends Fragment {
                 fragmentTransaction.replace(R.id.content_frame_second, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
 
             }
         });
@@ -278,8 +298,6 @@ public class Dashboard extends Fragment {
                 fragmentTransaction.replace(R.id.content_frame_second, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
-
             }
         });
 
@@ -294,11 +312,8 @@ public class Dashboard extends Fragment {
                 fragmentTransaction.replace(R.id.content_frame_second, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
-
             }
         });
-
 
         inviteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,10 +343,8 @@ public class Dashboard extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
-
             }
         });
-
 
         return view;
 

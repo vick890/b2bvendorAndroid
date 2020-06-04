@@ -561,8 +561,6 @@ public class FillDetails extends AppCompatActivity {
 
         requestQueue.add(stringRequest);
 
-
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
