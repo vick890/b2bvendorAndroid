@@ -167,8 +167,6 @@ public class SingleProduct extends Fragment {
                                 colorName.setText("Selected Color : " + checkColor);
                             }
 
-
-
                             if(getActivity()!=null){
 
 

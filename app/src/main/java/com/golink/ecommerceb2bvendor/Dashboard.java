@@ -257,7 +257,8 @@ public class Dashboard extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Fragment fragment = new ProductsPage();
+                //Fragment fragment = new ProductsPage();
+                Fragment fragment = new VendorPage();
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

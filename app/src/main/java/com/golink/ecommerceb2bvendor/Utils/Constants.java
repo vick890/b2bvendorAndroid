@@ -20,6 +20,7 @@ public class Constants {
     public static final String VENDOR_REQUESTS = COMMON_URL + "vendorRequests";
     public static final String REJECT_REQUEST = COMMON_URL + "saveRejectRequest";
     public static final String PRODUCTS = COMMON_URL + "product";
+    public static final String VENDOR_DETAIL = COMMON_URL + "vendorDetailForVendor";
     public static final String PRODUCT_DETAIl = COMMON_URL + "product_detail";
     public static final String ACCEPT_REQUEST = COMMON_URL + "saveAcceptRequest";
     public static final String TOP_SELLING = COMMON_URL + "topSellingItems";

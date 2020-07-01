@@ -85,7 +85,7 @@ public class AddProduct extends Fragment {
     private Spinner prodType;
     private Context context;
     final ArrayList<Bitmap> bitmaps = new ArrayList<>();
-    private ImageView previewImagess;
+    //private ImageView previewImagess;
 
     private List<String> manufacture = new ArrayList<>();
     private HashMap<String, String> manufactureCheck= new HashMap<String, String>();
@@ -149,7 +149,7 @@ public class AddProduct extends Fragment {
         Button addCat = view.findViewById(R.id.addCat);
         outOfStockCheckBox = view.findViewById(R.id.outOfStockCheckBox);
         previewImages = view.findViewById(R.id.previewImages);
-        previewImagess = view.findViewById(R.id.previewImagess);
+     //   previewImagess = view.findViewById(R.id.previewImagess);
 
         mProgress.setMessage("Please Wait...");
         mProgress.show();
@@ -170,7 +170,7 @@ public class AddProduct extends Fragment {
         blueNumber = view.findViewById(R.id.blueNumber);
         previewNumber = view.findViewById(R.id.previewNumber);
 
-        previewNumber.setOnClickListener(new View.OnClickListener() {
+       /* previewNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (bitmaps != null){
@@ -246,7 +246,7 @@ public class AddProduct extends Fragment {
                     Toast.makeText(context, "First Select Some Images...", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
 
         if(ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -368,23 +368,14 @@ public class AddProduct extends Fragment {
                             else{
                                 outOfStockCheckBox.setChecked(false);
                             }
-
-
                             String manFinal = manufactureCheckEdit.get(category);
                             selectSpinnerValue(prodType, manFinal);
-
-
-
                         }
-
-
                     } catch (JSONException e) {
 
                         e.printStackTrace();
                     }
-
                     mProgress.dismiss();
-
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -412,14 +403,9 @@ public class AddProduct extends Fragment {
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
             requestQueue2.add(stringRequest2);
-
-
-
         }else{
             mProgress.dismiss();
         }
-
-
 
         previewImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -440,14 +426,10 @@ public class AddProduct extends Fragment {
             }
         });
 
-
-
         blackImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-
                     Intent gallaryIntent = new Intent();
                     gallaryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                     gallaryIntent.setAction(Intent.ACTION_GET_CONTENT);
@@ -457,8 +439,6 @@ public class AddProduct extends Fragment {
                 else {
                     Toast.makeText(getActivity(), "Please grant storage access from settings!", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
 
@@ -977,13 +957,6 @@ public class AddProduct extends Fragment {
         }
     }
 
-
-
-
-
-
-
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void requestStoragePermission() {
         if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -1021,7 +994,7 @@ public class AddProduct extends Fragment {
         }
     }
 
-    private void showImages(){
+   /* private void showImages(){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -1041,7 +1014,7 @@ public class AddProduct extends Fragment {
                 }
             }
         }).start();
-    }
+    }*/
 
 }
 
